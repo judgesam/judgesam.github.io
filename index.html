@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" src="//cdn.jsdelivr.net/particle-api-js/5/particle.min.js">
+</script>
+<head>
+    <style>
+        .auto            { cursor: auto; }
+        .default         { cursor: default; }
+        .pointer         { cursor: pointer; }
+    </style>
+    </head>
+<body>
+<img src="https://i.pinimg.com/originals/ab/92/ca/ab92cad2f568bb730febe4d27b4b1f0e.png" alt="unfinished bingo card" onclick="thumbUp()" width="200" hspace="40" class="pointer"/>
+<img src="http://www.clker.com/cliparts/5/2/5/8/13476359851958638477thumbs-down-icon-red-hi.png" alt="unfinished bingo card" onclick="thumbDown()" width="200" hspace="40" class="pointer" />
+    
+</body>
+    
+<script>    
+//var Particle = require('particle-api-js');
+var particle = new Particle();
+var token ='f9b796cbd8d6eec5fe8dba8161a448a66024b8e3' ;
+        
+function thumbUp() {
+    console.log('up');
+    doEvent('up');
+}
+function thumbDown() {
+    console.log('down');
+    doEvent('down');
+    
+}
+function scroll(){
+    console.log('scroll');
+    document.body.style.cursor = "pointer";
+} 
+
+function doEvent(upDown){
+    var publishEventPr = particle.publishEvent({ name: upDown , data: {}, auth: token});
+    
+    publishEventPr.then(
+  function(data) {
+    if (data.body.ok) { console.log("Event published succesfully") }
+  },
+  function(err) {
+    console.log("Failed to publish event: " + err)
+  }
+);
+}
+
+    </script>
+</html>
