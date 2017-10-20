@@ -2,8 +2,7 @@
 <html>
 <script type="text/javascript" src="//cdn.jsdelivr.net/particle-api-js/5/particle.min.js">
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
     
 <head>
     <style>
@@ -26,6 +25,8 @@
         <center id="down"></center>
     </div>
 </div>
+<br>
+<font id="offText" size="6"></font>
     
 </body>
     
@@ -36,6 +37,7 @@ var devID = '30001d001747343438323536';
     
 window.onload = refreshCounts();
 window.setInterval(function(){refreshCounts();}, 1000);
+
     
 function refreshCounts(){
     doFunction('checkUp');
@@ -65,17 +67,9 @@ function doFunction(inputString){
             updateCounts( data['body'].return_value, inputString);
             
       }, function(err) {
-        console.log('An error occurred:', err);
+
       });
     }
     
-//$(document).ready(function() {
-//    // Notice the .on instead of .click, it's the new style for events
-//    // in jQuery and the e argument
-//    $("#button").on('click', function (e) {
-//        e.preventDefault();
-//        $(".target").effect( "bounce", { times : 3 }, 300);
-//    });
-//});​
     </script>
 </html>
