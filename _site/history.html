@@ -16,7 +16,7 @@
     var xLabels = Array(61).fill().map((x,i)=>i).reverse();
     console.log(xLabels);
     window.onload = getVar();
-    window.setInterval(function(){refreshCounts();}, 60000);
+    window.setInterval(function(){getVar();}, 60000);
         
     function range1(i){var x=[];var i=1;while(x.push(i++)<i){};return x}
         
