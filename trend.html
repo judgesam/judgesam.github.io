@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/particle-api-js/5/particle.min.js">
+</script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <script>
+    var particle = new Particle();
+    var token ='f9b796cbd8d6eec5fe8dba8161a448a66024b8e3' ;
+    var devID = '30001d001747343438323536';
+    
+    var xLabels = Array(61).fill().map((x,i)=>i).reverse();
+    console.log(xLabels);
+    window.onload = getVar();
+    window.setInterval(function(){refreshCounts();}, 60000);
+        
+    function range1(i){var x=[];var i=1;while(x.push(i++)<i){};return x}
+        
+    function getVar(){
+    particle.getVariable({ deviceId: devID, name: 'tally', auth: token }).then(function(data) {
+  console.log('Device variable retrieved successfully:', data);
+        var theData=JSON.parse(data['body'].result);
+        var goodData=theData.slice(0,60);
+        var badData=theData.slice(60,120);
+        var chart = Highcharts.chart('container', {
+    chart: {
+        type: 'areaspline'
+    },
+    title: {
+        text: 'Good Job/Bad Job'
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 150,
+        y: 100,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+    },
+    xAxis: {
+        categories: xLabels,
+            labels:{
+                step: 5  // this will show every second label
+            }, 
+        title: {
+            text: 'Minutes Ago'
+        }
+    },
+    yAxis: {
+        title: {
+            text: '# Clicks/min'
+        }
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: ' units'
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        areaspline: {
+            fillOpacity: 0.5
+        }
+    },
+    series: [{
+        name: 'Good',
+        data: goodData,
+        color: Highcharts.getOptions().colors[2]
+        
+    },{
+        name: 'Bad',
+        data: badData,
+        color: Highcharts.getOptions().colors[8]
+    }]
+});
+    }, function(err) {
+  console.log('An error occurred while getting attrs:', err);
+    });
+}
+    </script>
+</html>
